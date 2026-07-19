@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姬雨杉 - 新媒体运营简历</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif;
+            background: #f5f5f5;
+            padding: 0;
+            margin: 0;
+        }
+
+        .resume {
+            width: 210mm;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .left-section {
+            width: 70mm;
+            background: #2c3e50;
+            color: #fff;
+            padding: 12mm 8mm;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .right-section {
+            width: 140mm;
+            padding: 12mm 12mm;
+        }
+
+        .photo-container {
+            text-align: center;
+            margin-bottom: 6mm;
+        }
+
+        .photo {
+            width: 30mm;
+            height: 30mm;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            object-fit: cover;
+        }
+
+        .name {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2mm;
+            letter-spacing: 1px;
+        }
+
+        .title {
+            font-size: 9px;
+            text-align: center;
+            color: #bdc3c7;
+            margin-bottom: 6mm;
+            line-height: 1.4;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 3mm;
+            font-size: 9px;
+            color: #bdc3c7;
+            line-height: 1.3;
+        }
+
+        .contact-item span:first-child {
+            width: 12mm;
+            color: #3498db;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-size: 10px;
+            font-weight: bold;
+            margin: 5mm 0 3mm;
+            padding-bottom: 2mm;
+            border-bottom: 1px solid #3498db;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-item {
+            margin-bottom: 2.5mm;
+            font-size: 9px;
+            color: #bdc3c7;
+            line-height: 1.3;
+        }
+
+        .skill-item span {
+            display: block;
+            margin-top: 1mm;
+            font-size: 8px;
+            color: #95a5a6;
+        }
+
+        .tool-category {
+            margin-bottom: 3mm;
+        }
+
+        .tool-category h4 {
+            font-size: 9px;
+            margin-bottom: 2mm;
+            color: #fff;
+        }
+
+        .tool-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2mm;
+        }
+
+        .tool-tag {
+            background: rgba(52, 152, 219, 0.3);
+            padding: 1.5mm 4mm;
+            border-radius: 4mm;
+            font-size: 8px;
+            color: #bdc3c7;
+        }
+
+        .honor-item {
+            margin-bottom: 2mm;
+            font-size: 9px;
+            color: #bdc3c7;
+            line-height: 1.3;
+        }
+
+        .honor-item span {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .right-section .section-title {
+            color: #2c3e50;
+            border-color: #3498db;
+            margin-top: 0;
+            margin-bottom: 3mm;
+            padding-bottom: 1.5mm;
+        }
+
+        .objective {
+            margin-bottom: 4mm;
+        }
+
+        .objective p {
+            color: #555;
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        .education-item {
+            margin-bottom: 4mm;
+            padding-bottom: 3mm;
+            border-bottom: 1px solid #eee;
+        }
+
+        .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2mm;
+        }
+
+        .school-name {
+            font-size: 11px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .education-date {
+            font-size: 9px;
+            color: #888;
+        }
+
+        .education-major {
+            font-size: 10px;
+            color: #3498db;
+            margin-bottom: 2mm;
+        }
+
+        .education-courses {
+            font-size: 9px;
+            color: #666;
+            line-height: 1.3;
+        }
+
+        .experience-item {
+            margin-bottom: 4mm;
+            padding-bottom: 3mm;
+            border-bottom: 1px solid #eee;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2mm;
+        }
+
+        .company-name {
+            font-size: 11px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .experience-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 9px;
+            color: #888;
+        }
+
+        .experience-position {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .experience-content {
+            margin-top: 2mm;
+        }
+
+        .experience-content h4 {
+            font-size: 10px;
+            color: #333;
+            margin-bottom: 2mm;
+        }
+
+        .experience-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .experience-content li {
+            font-size: 9px;
+            color: #555;
+            margin-bottom: 2mm;
+            padding-left: 6mm;
+            position: relative;
+            line-height: 1.3;
+        }
+
+        .experience-content li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3mm;
+        }
+
+        .project-item {
+            padding: 3mm;
+            border-left: 2px solid #3498db;
+        }
+
+        .project-title {
+            font-size: 9px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 1.5mm;
+        }
+
+        .project-company {
+            font-size: 8px;
+            color: #888;
+            margin-bottom: 2mm;
+        }
+
+        .project-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .project-content li {
+            font-size: 8px;
+            color: #555;
+            margin-bottom: 1.5mm;
+            padding-left: 5mm;
+            position: relative;
+            line-height: 1.3;
+        }
+
+        .project-content li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+        }
+
+        .self-assessment {
+            margin-top: 4mm;
+        }
+
+        .self-assessment p {
+            font-size: 9px;
+            color: #555;
+            line-height: 1.4;
+            text-align: justify;
+        }
+
+        @media screen and (max-width: 800px) {
+            body {
+                background: #fff;
+                padding: 0;
+            }
+
+            .resume {
+                width: 100%;
+                min-height: auto;
+                box-shadow: none;
+                flex-direction: column;
+            }
+
+            .left-section, .right-section {
+                width: 100%;
+                min-height: auto;
+                padding: 20px;
+            }
+
+            .left-section {
+                padding-bottom: 30px;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-header, .education-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .experience-meta {
+                align-items: flex-start;
+                margin-top: 2px;
+            }
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+
+            .resume {
+                width: 210mm;
+                min-height: 297mm;
+                margin: 0;
+                box-shadow: none;
+            }
+
+            .left-section {
+                min-height: 297mm;
+            }
+
+            .right-section {
+                min-height: 297mm;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="resume">
+        <div class="left-section">
+            <div class="photo-container">
+                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20young%20asian%20man%20business%20formal%20attire%20black%20suit%20white%20shirt%20tie%20portrait%20photo%20studio%20lighting%20clean%20background&image_size=square_hd" alt="姬雨杉" class="photo">
+            </div>
+            
+            <h1 class="name">姬雨杉</h1>
+            <p class="title">新媒体运营 / 内容策划<br>短视频运营 / 内容运营</p>
+
+            <div class="contact-item">
+                <span>基本信息</span>
+                <span>男 | 汉族 | 2002.04</span>
+            </div>
+            <div class="contact-item">
+                <span>联系电话</span>
+                <span>177 8613 0252</span>
+            </div>
+            <div class="contact-item">
+                <span>电子邮箱</span>
+                <span>1841584080@qq.com</span>
+            </div>
+            <div class="contact-item">
+                <span>所在城市</span>
+                <span>湖北武汉</span>
+            </div>
+
+            <h3 class="section-title">专业技能</h3>
+            <ul class="skill-list">
+                <li class="skill-item">
+                    短视频全流程制作与运营
+                    <span>选题策划、脚本编写、拍摄、剪辑、发布、数据复盘</span>
+                </li>
+                <li class="skill-item">
+                    内容策划与分发
+                    <span>熟悉抖音、视频号、公众号等新媒体平台运营逻辑和规则</span>
+                </li>
+                <li class="skill-item">
+                    数据分析与用户增长
+                    <span>具备内容策划、热点捕捉、爆款内容拆解及用户增长思维</span>
+                </li>
+                <li class="skill-item">
+                    沟通协调与执行能力
+                    <span>具备良好的沟通协调能力和项目执行能力</span>
+                </li>
+            </ul>
+
+            <h3 class="section-title">工具技能</h3>
+            <div class="tool-category">
+                <h4>视频剪辑</h4>
+                <div class="tool-items">
+                    <span class="tool-tag">剪映</span>
+                    <span class="tool-tag">Premiere</span>
+                    <span class="tool-tag">After Effects</span>
+                    <span class="tool-tag">Final Cut Pro</span>
+                </div>
+            </div>
+            <div class="tool-category">
+                <h4>图像设计</h4>
+                <div class="tool-items">
+                    <span class="tool-tag">Photoshop</span>
+                    <span class="tool-tag">Illustrator</span>
+                    <span class="tool-tag">Canva</span>
+                </div>
+            </div>
+            <div class="tool-category">
+                <h4>AI工具</h4>
+                <div class="tool-items">
+                    <span class="tool-tag">Midjourney</span>
+                    <span class="tool-tag">ChatGPT</span>
+                    <span class="tool-tag">豆包</span>
+                    <span class="tool-tag">AI配音</span>
+                </div>
+            </div>
+            <div class="tool-category">
+                <h4>办公软件</h4>
+                <div class="tool-items">
+                    <span class="tool-tag">Excel</span>
+                    <span class="tool-tag">Word</span>
+                    <span class="tool-tag">PPT</span>
+                </div>
+            </div>
+
+            <h3 class="section-title">语言能力</h3>
+            <div class="tool-category">
+                <div class="tool-items">
+                    <span class="tool-tag">CET-4</span>
+                    <span class="tool-tag">普通话二级甲等</span>
+                </div>
+            </div>
+
+            <h3 class="section-title">获奖荣誉</h3>
+            <div class="honor-item">
+                <span>2023年</span> 全国高校设计创意大赛 东方设计奖 二等奖
+            </div>
+            <div class="honor-item">
+                <span>2023年</span> ESGAC 国际数字艺术设计大赛 铜奖
+            </div>
+            <div class="honor-item">
+                <span>2023年</span> ESGAC 国际数字艺术设计大赛 铜奖
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="objective">
+                <h3 class="section-title">求职意向</h3>
+                <p>新媒体运营 | 内容运营 | 短视频运营 | 内容策划</p>
+            </div>
+
+            <div class="education">
+                <h3 class="section-title">教育背景</h3>
+                <div class="education-item">
+                    <div class="education-header">
+                        <span class="school-name">武汉纺织大学</span>
+                        <span class="education-date">2022.09 - 2025.06</span>
+                    </div>
+                    <p class="education-major">数字媒体技术（本科）</p>
+                    <p class="education-courses">主修课程：摄影、网页设计、logo设计、游戏机制制作、2d游戏制作、3d建模、影视技术、脚本编写、合作实践项目规划、AI技术等</p>
+                </div>
+            </div>
+
+            <div class="experience">
+                <h3 class="section-title">实习经历</h3>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <span class="company-name">湖北诚智联科科技有限公司</span>
+                        <div class="experience-meta">
+                            <span class="experience-position">新媒体运营</span>
+                            <span>2024.07 - 2025.06</span>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <h4>工作职责</h4>
+                        <ul>
+                            <li>负责企业抖音号内容运营及品牌宣传，独立完成内容策划、脚本编写、拍摄、剪辑、发布</li>
+                            <li>负责企业抖音号与企业新媒体矩阵搭建与运营，完成内容策划、脚本编写、拍摄、剪辑、发布、数据分析等全流程工作，配合销售团队开展渠道推广及客户线索获取</li>
+                        </ul>
+                        <h4>工作亮点</h4>
+                        <ul>
+                            <li>内容规划：围绕机加工产品及行业应用场景，策划产品功能介绍、行业解决方案、案例分享、活动纪实等内容</li>
+                            <li>内容矩阵搭建：建立"产品功能+行业应用+活动纪实+品牌宣传"四大内容方向，完善账号内容结构</li>
+                            <li>用户增长：优化内容选题、发布时间及呈现形式，持续提升账号曝光量与互动率</li>
+                            <li>数据复盘：定期分析视频播放量、完播率、互动率等数据，迭代内容方向与运营策略</li>
+                            <li>爆款内容打造：关注行业热点及竞品动态，拆解爆款内容逻辑并结合企业特点进行内容优化</li>
+                            <li>转化线索：通过抖音内容运营及私信沟通，累计建立渠道客户联系50+家，为销售团队提供有效线索</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <span class="company-name">湖北经视《民生新闻》</span>
+                        <div class="experience-meta">
+                            <span class="experience-position">实习编导</span>
+                            <span>2023.07 - 2023.10</span>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <h4>工作职责</h4>
+                        <ul>
+                            <li>参与《民生新闻》栏目日常新闻采编，负责新闻选题策划、采访拍摄、脚本撰写、视频剪辑及新闻制作</li>
+                        </ul>
+                        <h4>工作内容</h4>
+                        <ul>
+                            <li>独立完成新闻采访拍摄及后期剪辑，编写新闻脚本及文案</li>
+                            <li>与政府部门、街道社区等单位进行沟通协调获取新闻线索及素材协调</li>
+                            <li>协助栏目内容制作及播出，熟悉电视新闻采编流程</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <span class="company-name">湖北荆楚网</span>
+                        <div class="experience-meta">
+                            <span class="experience-position">新媒体运营</span>
+                            <span>2023.04 - 2023.06</span>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <h4>工作职责</h4>
+                        <ul>
+                            <li>负责政务新媒体账号（视频号、公众号）内容运营及传播</li>
+                        </ul>
+                        <h4>工作内容</h4>
+                        <ul>
+                            <li>负责视频号及微信公众号内容策划、脚本撰写及发布</li>
+                            <li>剪辑新闻短视频并进行平台发布，跟踪内容传播数据</li>
+                            <li>结合热点策划选题，提升内容传播效果</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="projects">
+                <h3 class="section-title">项目经历</h3>
+                <div class="project-grid">
+                    <div class="project-item">
+                        <h4 class="project-title">企业抖音号运营项目</h4>
+                        <p class="project-company">诚智联科</p>
+                        <div class="project-content">
+                            <ul>
+                                <li>负责企业抖音号从内容策划到发布运营全流程</li>
+                                <li>输出原创内容40+条</li>
+                                <li>完成渠道大会活动拍摄及后期制作</li>
+                                <li>账号整体传播效果显著提升</li>
+                                <li>累计建立渠道客户联系50+家</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <h4 class="project-title">新闻内容生产项目</h4>
+                        <p class="project-company">湖北经视《民生新闻》</p>
+                        <div class="project-content">
+                            <ul>
+                                <li>独立完成新闻采访拍摄</li>
+                                <li>编写新闻脚本及文案</li>
+                                <li>新闻短视频剪辑及发布</li>
+                                <li>与政府社区开展活动协调</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-item" style="grid-column: span 2;">
+                        <h4 class="project-title">政务新媒体运营项目</h4>
+                        <p class="project-company">湖北荆楚网</p>
+                        <div class="project-content">
+                            <ul>
+                                <li>负责政务新媒体内容更新及运营</li>
+                                <li>策划并发布视频号、公众号内容</li>
+                                <li>剪辑新闻短视频并发布</li>
+                                <li>结合热点策划选题，提升传播效果</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="self-assessment">
+                <h3 class="section-title">自我评价</h3>
+                <p>具备新闻采编与新媒体内容运营双重实践经验，熟悉短视频内容从选题策划、脚本撰写、拍摄剪辑到账号运营的完整流程。拥有较强的数据敏感性和内容策划能力，能够根据数据优化内容表现，提升账号传播效果。在诚智联科实习期间，通过抖音内容运营及私信沟通，累计建立渠道客户联系50+家，为销售团队提供有效线索。熟练运用AI工具辅助内容创作，具备较强的学习能力、执行能力和团队协作能力，期待在新媒体领域持续成长，为公司创造价值。</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

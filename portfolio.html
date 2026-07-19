@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LENS STUDIO - 人像写真作品集</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-color: #0a0a0a;
+            --secondary-color: #fafafa;
+            --accent-gold: #c9a962;
+            --accent-rose: #c77d7d;
+            --accent-sage: #7d9c8c;
+            --accent-mint: #7dc9b8;
+            --accent-lavender: #9c7dc9;
+            --text-primary: #0a0a0a;
+            --text-secondary: #555;
+            --text-muted: #999;
+            --border-color: rgba(0,0,0,0.08);
+            --transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--secondary-color);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 400;
+        }
+
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            overflow: hidden;
+            background: var(--primary-color);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/韩系/横构图/DSC04629.jpg') center/cover;
+            opacity: 0.45;
+            transition: var(--transition-slow);
+        }
+
+        .hero-section:hover .hero-bg {
+            transform: scale(1.03);
+            opacity: 0.55;
+        }
+
+        .hero-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                180deg,
+                rgba(10,10,10,0.3) 0%,
+                rgba(10,10,10,0.6) 60%,
+                rgba(10,10,10,0.95) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 80px 60px;
+            max-width: 800px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(60px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero-subtitle {
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 24px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-title {
+            font-size: 5.5rem;
+            line-height: 1.05;
+            color: white;
+            margin-bottom: 32px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            margin-bottom: 50px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .hero-scroll {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            animation: fadeInUp 1s ease-out 0.8s both;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .hero-scroll:hover {
+            color: var(--accent-gold);
+        }
+
+        .hero-scroll-arrow {
+            width: 20px;
+            height: 30px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .hero-scroll-arrow::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 2px;
+            animation: scrollBounce 2s infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 30px 60px;
+            transition: var(--transition-slow);
+        }
+
+        .nav-bar.scrolled {
+            background: rgba(10,10,10,0.9);
+            backdrop-filter: blur(20px);
+            padding: 20px 60px;
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 45px;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-gold);
+            transition: var(--transition-fast);
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .section {
+            padding: 120px 60px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-subtitle {
+            font-size: 10px;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-size: 4rem;
+            color: var(--text-primary);
+            margin-bottom: 28px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-description {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.9;
+            font-weight: 300;
+        }
+
+        .filter-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 6px;
+            background: rgba(0,0,0,0.03);
+            border-radius: 50px;
+        }
+
+        .category-tab {
+            padding: 12px 28px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border-radius: 40px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+        }
+
+        .category-tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .category-tab:hover:not(.active) {
+            background: rgba(0,0,0,0.06);
+        }
+
+        .orientation-btns {
+            display: flex;
+            gap: 15px;
+        }
+
+        .orientation-btn {
+            padding: 8px 22px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .orientation-btn.active {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .category-intro {
+            margin-bottom: 60px;
+            padding: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 4px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .category-intro h3 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            color: var(--accent-gold);
+        }
+
+        .category-intro p {
+            font-size: 1rem;
+            line-height: 1.9;
+            opacity: 0.8;
+            font-weight: 300;
+            max-width: 800px;
+        }
+
+        .category-section {
+            margin-bottom: 120px;
+            padding: 50px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .category-section:first-child {
+            padding-top: 0;
+        }
+
+        .category-section:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 50px;
+            padding-left: 20px;
+        }
+
+        .category-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 500;
+            color: var(--accent-gold);
+            margin: 0;
+            letter-spacing: 0.1em;
+        }
+
+        .category-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(201,169,98,0.8), rgba(201,169,98,0.2), transparent);
+            max-width: 500px;
+        }
+
+        .gallery-container {
+            column-count: 2;
+            column-gap: 40px;
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 40px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 6px;
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .gallery-item.wide {
+            column-span: 2;
+        }
+
+        .gallery-image {
+            width: 100%;
+            display: block;
+            transition: var(--transition-slow);
+            opacity: 0;
+        }
+
+        .gallery-image.loaded {
+            opacity: 1;
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-category {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            color: white;
+            font-weight: 500;
+            transform: translateY(10px);
+            transition: var(--transition-fast);
+            text-align: center;
+        }
+
+        .gallery-item:hover .gallery-category {
+            transform: translateY(0);
+        }
+
+        .gallery-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .featured-section {
+            padding: 150px 60px;
+            background: var(--primary-color);
+            margin: 80px 0;
+        }
+
+        .featured-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .featured-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            animation: fadeInRight 0.8s ease-out;
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .featured-text {
+            color: white;
+            animation: fadeInLeft 0.8s ease-out;
+        }
+
+        .featured-category {
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .featured-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .featured-description {
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.9;
+            margin-bottom: 40px;
+            opacity: 0.75;
+        }
+
+        .featured-cta {
+            display: inline-block;
+            padding: 14px 38px;
+            background: var(--accent-gold);
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            font-weight: 600;
+            transition: var(--transition-fast);
+            border-radius: 2px;
+        }
+
+        .featured-cta:hover {
+            background: white;
+        }
+
+        .about-section {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+        }
+
+        .about-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+        }
+
+        .about-image-border {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--accent-gold);
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .about-content h2 {
+            font-size: 3rem;
+            margin-bottom: 35px;
+        }
+
+        .about-content p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 28px;
+            font-weight: 300;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 50px;
+            padding-top: 50px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .about-stat-item {
+            text-align: left;
+        }
+
+        .about-stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--accent-gold);
+            line-height: 1;
+        }
+
+        .about-stat-label {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 12px;
+        }
+
+        .contact-section {
+            background: var(--primary-color);
+            padding: 150px 60px;
+            margin-top: 80px;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            color: white;
+        }
+
+        .contact-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+        }
+
+        .contact-content p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 30px;
+            line-height: 1.9;
+            font-weight: 300;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 300;
+            transition: var(--transition-fast);
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        .contact-divider {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .footer {
+            padding: 80px 60px;
+            background: var(--secondary-color);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 45px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: var(--transition-fast);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .social-links a {
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            transition: var(--transition-fast);
+            border-radius: 50%;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .footer-copyright {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+        }
+
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10,10,10,0.98);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-slow);
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-image {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            transform: scale(0.95);
+            transition: var(--transition-slow);
+        }
+
+        .lightbox.active .lightbox-image {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            color: rgba(255,255,255,0.6);
+            font-size: 36px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            line-height: 1;
+        }
+
+        .lightbox-close:hover {
+            color: white;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255,255,255,0.6);
+            font-size: 28px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            background: rgba(255,255,255,0.05);
+            padding: 18px;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .lightbox-prev {
+            left: 30px;
+        }
+
+        .lightbox-next {
+            right: 30px;
+        }
+
+        .lightbox-info {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+        }
+
+        .lightbox-index {
+            font-size: 11px;
+            color: var(--accent-gold);
+            letter-spacing: 0.2em;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 56px;
+            height: 56px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-fast);
+            z-index: 999;
+            border-radius: 50%;
+            font-size: 16px;
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .scroll-top:hover {
+            background: var(--accent-gold);
+            color: var(--primary-color);
+        }
+
+        @media screen and (max-width: 1200px) {
+            .gallery-container {
+                column-count: 2;
+            }
+
+            .gallery-item.wide {
+                column-span: 1;
+            }
+
+            .category-title {
+                font-size: 1.6rem;
+            }
+
+            .featured-content {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .about-section {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+        }
+
+        @media screen and (max-width: 900px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .hero-content {
+                padding: 60px 40px;
+            }
+
+            .nav-bar {
+                padding: 20px 30px;
+            }
+
+            .nav-bar.scrolled {
+                padding: 15px 30px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .nav-links a {
+                font-size: 11px;
+            }
+
+            .section {
+                padding: 80px 30px;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .featured-section {
+                padding: 80px 30px;
+            }
+
+            .featured-title {
+                font-size: 2rem;
+            }
+
+            .contact-section {
+                padding: 80px 30px;
+            }
+
+            .contact-content h2 {
+                font-size: 2.5rem;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer {
+                padding: 60px 30px;
+            }
+
+            .lightbox-nav {
+                font-size: 20px;
+                width: 44px;
+                height: 44px;
+                padding: 12px;
+            }
+
+            .lightbox-prev {
+                left: 15px;
+            }
+
+            .lightbox-next {
+                right: 15px;
+            }
+
+            .lightbox-close {
+                top: 15px;
+                right: 15px;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .gallery-container {
+                column-count: 1;
+            }
+
+            .category-intro {
+                padding: 30px;
+            }
+
+            .category-intro h3 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar" id="navBar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">LENS STUDIO</a>
+            <div class="nav-links">
+                <a href="#home">首页</a>
+                <a href="#gallery">作品</a>
+                <a href="#about">关于</a>
+                <a href="#contact">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-gradient"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle">Portrait Photography</p>
+            <h1 class="hero-title">人像写真</h1>
+            <p class="hero-description">用光影记录人物的优雅与气质<br>在镜头之间定格最美的瞬间</p>
+            <div class="hero-scroll" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">
+                <span>探索作品</span>
+                <div class="hero-scroll-arrow"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="gallery">
+        <div class="section-header">
+            <p class="section-subtitle">Gallery</p>
+            <h2 class="section-title">作品集</h2>
+            <p class="section-description">精心策划的人像摄影作品，涵盖多种风格与主题，展现人物的多面魅力</p>
+        </div>
+
+        <div class="filter-container">
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="all">全部</button>
+                <button class="category-tab" data-category="创作">创作</button>
+                <button class="category-tab" data-category="古典">古典</button>
+                <button class="category-tab" data-category="日系">日系</button>
+                <button class="category-tab" data-category="韩系">韩系</button>
+                <button class="category-tab" data-category="风格">风格</button>
+            </div>
+            <div class="orientation-btns">
+                <button class="orientation-btn active" data-orientation="all">全部</button>
+                <button class="orientation-btn" data-orientation="wide">横构图</button>
+                <button class="orientation-btn" data-orientation="vertical">竖构图</button>
+            </div>
+        </div>
+
+        <div class="category-intro" id="categoryIntro">
+            <h3>全部作品</h3>
+            <p>187张精选人像摄影作品，涵盖创作、古典、日系、韩系、风格五大类别，以横构图与竖构图两种形式呈现，展现人像摄影的无限可能。</p>
+        </div>
+
+        <div class="gallery-container" id="galleryContainer"></div>
+
+        <div class="gallery-stats" id="galleryStats">
+            <div class="stat-item">
+                <div class="stat-number" id="totalCount">187</div>
+                <div class="stat-label">总作品数</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="wideCount">25</div>
+                <div class="stat-label">横构图</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="verticalCount">162</div>
+                <div class="stat-label">竖构图</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-section">
+        <div class="featured-content">
+            <img src="images/古典/横构图/IMG_3481.jpg" alt="Featured" class="featured-image">
+            <div class="featured-text">
+                <p class="featured-category">Featured Work</p>
+                <h2 class="featured-title">光影艺术</h2>
+                <p class="featured-description">这组作品探索了光影在人像摄影中的无限可能。通过精心设计的布光方案，在光与影之间创造出丰富的层次和质感，展现人物内心深处的情感与力量。</p>
+                <a href="#gallery" class="featured-cta">查看更多</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="about-section">
+            <div class="about-image-wrapper">
+                <img src="images/古典/竖构图/DSC00984.jpg" alt="摄影师" class="about-image">
+                <div class="about-image-border"></div>
+            </div>
+            <div class="about-content">
+                <h2>关于摄影师</h2>
+                <p>我是一名热爱生活的人像摄影师，专注于捕捉人物的自然美与独特气质。多年来，我用镜头记录着每一个精彩瞬间，从时尚写真到生活纪实，致力于展现人物最真实、最动人的一面。</p>
+                <p>我的摄影理念是"用光影讲故事"。每一张照片都承载着独特的情感和故事，我希望通过我的作品，让观众感受到人物内在的力量与外在的优雅。</p>
+                <p>我相信，好的人像摄影不仅仅是技术的展现，更是摄影师与模特之间的情感交流。因此，我不断探索新的拍摄方式和表现手法，力求在每一次拍摄中都能创造出独特而有意义的作品。</p>
+                
+                <div class="about-stats">
+                    <div class="about-stat-item">
+                        <div class="about-stat-number">10+</div>
+                        <div class="about-stat-label">年摄影经验</div>
+                    </div>
+                    <div class="about-stat-item">
+                        <div class="about-stat-number">187</div>
+                        <div class="about-stat-label">精选作品</div>
+                    </div>
+                    <div class="about-stat-item">
+                        <div class="about-stat-number">20+</div>
+                        <div class="about-stat-label">获奖荣誉</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="contact-content">
+            <h2>联系我</h2>
+            <p>如果您对我的作品感兴趣，或者有任何合作意向，请随时与我联系。期待与您共同创造美好的视觉记忆。</p>
+            <div class="contact-info">
+                <a href="mailto:1841584080@qq.com" class="contact-link">1841584080@qq.com</a>
+                <span class="contact-divider">|</span>
+                <a href="mailto:yushan.7@outlook.com" class="contact-link">yushan.7@outlook.com</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">LENS STUDIO</div>
+            <div class="footer-links">
+                <a href="#home">首页</a>
+                <a href="#gallery">作品</a>
+                <a href="#about">关于</a>
+                <a href="#contact">联系</a>
+            </div>
+            <div class="social-links">
+                <a href="#" title="Instagram">IG</a>
+                <a href="#" title="WeChat">WC</a>
+                <a href="#" title="Weibo">WB</a>
+                <a href="#" title="Email">EM</a>
+            </div>
+            <div class="footer-copyright">© 2024 LENS STUDIO. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">×</span>
+        <span class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</span>
+        <span class="lightbox-nav lightbox-next" id="lightboxNext">›</span>
+        <img src="" alt="" class="lightbox-image" id="lightboxImage">
+        <div class="lightbox-info">
+            <span class="lightbox-index" id="lightboxIndex"></span>
+        </div>
+    </div>
+
+    <button class="scroll-top" id="scrollTop">↑</button>
+
+    <script>
+        const photoData = {
+            创作: {
+                wide: [
+                    '000006.jpg', 'IMG_0175.jpg', 'IMG_7599.jpg', 'IMG_7659.jpg',
+                    'mmexport1747591870812.jpg', 'mmexport1748509772950.jpg',
+                    'mmexport1748523354335.jpg', 'mmexport1748523359295.jpg'
+                ],
+                vertical: [
+                    '15687f7caca6b9c0026e4636fc24d678.jpg', '1784d7276e8c19f75d2d20b2fe411155.jpg',
+                    '7a5f92ba9b3a67ab300c8b2f5a514f42.jpg', '9e4533d6cf30b8a143e5ed38eaee957e.jpg',
+                    'IMG_0155.jpg', 'IMG_0156.jpg', 'IMG_0334.jpg', 'IMG_0532.jpg',
+                    'IMG_0727.jpg', 'IMG_0769.jpg', 'IMG_0801.jpg', 'IMG_0829.jpg',
+                    'IMG_0920.jpg', 'IMG_0950.jpg', 'IMG_7684.jpg', 'IMG_7945.jpg',
+                    'IMG_7958.jpg', 'IMG_7994.jpg', 'IMG_7995.jpg', 'IMG_8012.jpg',
+                    'IMG_8019.jpg', 'IMG_9661.jpg', 'IMG_9875.jpg', 'IMG_9876.jpg',
+                    'mmexport1747499298077.jpg', 'mmexport1747499368530.jpg',
+                    'mmexport1747499389119.jpg', 'mmexport1747499419900.jpg',
+                    'mmexport1747502831287.jpg', 'mmexport1747502839242.jpg',
+                    'mmexport1747502850847.jpg', 'mmexport1747570702912.jpg',
+                    'mmexport1747570707825.jpg', 'mmexport1747591758227.jpg',
+                    'mmexport1747591789167.jpg', 'mmexport1747591804273.jpg',
+                    'mmexport1747591825419.jpg', 'mmexport1747591838595.jpg',
+                    'mmexport1747591857149.jpg', 'mmexport1747591906392.jpg',
+                    'mmexport1747631332475.jpg', 'mmexport1747631350896.jpg',
+                    'mmexport1747632708589.jpg', 'mmexport1747632742746.jpg',
+                    'mmexport1748504878487.jpg', 'mmexport1748504882765.jpg',
+                    'mmexport1748509815119.jpg', 'mmexport1748509846803.jpg',
+                    'mmexport1748523376899.jpg', 'mmexport1748523386039.jpg',
+                    'mmexport1748523455351.jpg', 'retouch_2025051820244520.jpg'
+                ]
+            },
+            古典: {
+                wide: [
+                    '00daa1a012f75781544f49b37f6a3523.jpg', '6月21日(12).jpg', '6月21日(15).jpg',
+                    '6月21日(18).jpg', '6月21日(19).jpg', '6月21日(3).jpg', '6月21日(5).jpg',
+                    'IMG_1634.jpg', 'IMG_21770.jpg', 'IMG_3481.jpg', 'IMG_3807.jpg',
+                    'IMG_3830.jpg', 'IMG_3849.jpg', 'IMG_4321.jpg', 'IMG_4429(1).jpg',
+                    'IMG_4493.jpg', 'IMG_5694.jpg', 'IMG_5700.jpg', 'IMG_6116.jpg',
+                    'IMG_8746.jpg', 'IMG_8971.jpg', 'IMG_90091.jpg', '微信图片_20251015084640_372_4.jpg'
+                ],
+                vertical: [
+                    '0969681a3a1f39e9beeaca24acef84d3.jpg', '38ad730c52fc1ea993843f5b96101440.jpg',
+                    'DSC00984.jpg', 'DSC01086.jpg', 'IMG_14280.jpg', 'IMG_1441.jpg',
+                    'IMG_1497.jpg', 'IMG_1671.jpg', 'IMG_1719.jpg', 'IMG_1796.jpg',
+                    'IMG_1797.jpg', 'IMG_1856.jpg', 'IMG_1877.jpg', 'IMG_1927.jpg',
+                    'IMG_26461.jpg', 'IMG_30761.jpg', 'IMG_3164.jpg', 'IMG_3281.jpg',
+                    'IMG_3303.jpg', 'IMG_43403.jpg', 'IMG_4576.jpg', 'IMG_4785.jpg',
+                    'IMG_4907.jpg', 'IMG_4945.jpg', 'IMG_5126.jpg', 'IMG_5840.jpg',
+                    'IMG_5911.jpg', 'IMG_62262.jpg', 'IMG_8260.jpg', 'IMG_88162.jpg',
+                    'IMG_88872.jpg', 'IMG_8961.jpg', 'IMG_8969.jpg', 'IMG_9130.jpg',
+                    'IMG_9373.jpg', 'a0825bc8cf8a8e7467089f6edc6e37c7.jpg',
+                    'c17ea60a8128e4e9fdd3563249029ece.jpg', '微信图片_20250927105159_69_4.jpg',
+                    '微信图片_20251015091913_374_4.jpg', '微信图片_20251016084957_381_4.jpg'
+                ]
+            },
+            日系: {
+                wide: [
+                    '1e525b2a06f7d939b09e5e5a75d28bdb.jpg', 'd48c526e473049152076132482e046fc.jpg',
+                    'd4a6b15975ec99ce413b46f7716f517a.jpg', 'd83ca2ee432d8ede6ed17e5b03621113.jpg',
+                    'd83f95d5184b031b1a630d326ad9fc11.jpg'
+                ],
+                vertical: [
+                    '260bb7ca36bf5760a7381e8b4a55faf4.jpg', '6c86e185e50d15bdea86c6fa2d7c96bd.jpg',
+                    '71651e28d21e51e669af71926865751e.jpg', '96e5102fd066d3757f92d4298db55401.jpg',
+                    'IMG_11133.jpg', 'IMG_2203.jpg', 'IMG_2213.jpg', 'IMG_3679.jpg',
+                    'IMG_3868.jpg', 'IMG_3935.jpg', 'IMG_3984.jpg', 'IMG_4117.jpg',
+                    'IMG_9004.jpg', 'IMG_9018.jpg', 'e8e18e74a12f75322633a8f23d2831bd.jpg'
+                ]
+            },
+            韩系: {
+                wide: [
+                    'DSC04629.jpg', 'DSC04670.jpg', 'DSC04798.jpg', 'DSC04803.jpg', 'IMG_0433.jpg'
+                ],
+                vertical: [
+                    '000531.jpg', '000601.jpg', '00419.jpg', '00447.jpg', '004791.jpg',
+                    '00570.jpg', '00665.jpg', 'IMG_0082.jpg', 'IMG_1628.jpg'
+                ]
+            },
+            风格: {
+                wide: [
+                    '9a1edd9a37c76a87625747524a1213d9.jpg', 'DSC08514.jpg', 'IMG_0580.jpg',
+                    'IMG_0947.jpg', 'IMG_9870.jpg'
+                ],
+                vertical: [
+                    '31.jpg', '40297c1558d0478d5880234d530dc101.jpg',
+                    '725d6585b551a2cc72af5c3b356bd2a1.jpg', '9ce9093bf7544c0280c86516710607d3.jpg',
+                    'IMG_0387.jpg', 'IMG_0630.jpg', 'IMG_0716.jpg', 'IMG_0766.jpg',
+                    'IMG_0961.jpg', 'IMG_2425.jpg', 'IMG_5394.jpg', 'IMG_6938.jpg',
+                    'IMG_7139.jpg', 'IMG_7548.jpg', 'IMG_7682.jpg', 'IMG_7973.jpg',
+                    'IMG_9309.jpg', 'IMG_9478.jpg', 'IMG_9613.jpg', 'IMG_9640.jpg',
+                    'IMG_9975.jpg', 'R0030541.jpg', 'e2bb83aa77a775ee1102cf586ae2f4a0.jpg',
+                    'ee84eaa2d134cb454c37a31c25d41149.jpg', 'lalall.jpg', '水野.jpg'
+                ]
+            }
+        };
+
+        const categoryDescriptions = {
+            all: { title: '全部作品', desc: '187张精选人像摄影作品，涵盖创作、古典、日系、韩系、风格五大类别，以横构图与竖构图两种形式呈现，展现人像摄影的无限可能。' },
+            创作: { title: '创作系列', desc: '不拘一格的创作风格，融合现代美学与艺术表达，探索人像摄影的边界与可能性。' },
+            古典: { title: '古典系列', desc: '传承东方古典美学，以传统服饰与场景营造出典雅庄重的氛围，展现东方女性的温婉之美。' },
+            日系: { title: '日系系列', desc: '清新自然的日系风格，以柔和的色调和自然的表情，捕捉生活中的美好瞬间。' },
+            韩系: { title: '韩系系列', desc: '时尚精致的韩系风格，融合流行元素与个人气质，展现当代年轻人的时尚态度。' },
+            风格: { title: '风格系列', desc: '多元化的风格探索，从复古到现代，从简约到华丽，每一张照片都是独特的艺术表达。' }
+        };
+
+        const photoTitles = [
+            '优雅瞬间', '光影人像', '时尚写真', '自然之美', '情绪人像',
+            '都市风情', '青春活力', '古典韵味', '清新自然', '文艺气质',
+            '时尚街拍', '室内写真', '户外人像', '创意摄影', '艺术人像',
+            '商业摄影', '杂志封面', '个性写真', '唯美意境', '复古风格',
+            '日系清新', '韩系时尚', '欧美风', '中国风', '简约风格',
+            '奢华大气', '温柔婉约', '活力四射', '知性优雅', '甜美可人',
+            '气质非凡', '魅力无限', '独一无二', '精彩瞬间', '美好时光',
+            '永恒记忆', '心动时刻', '美丽人生', '自信光芒', '优雅绽放',
+            '艺术之美', '光影艺术', '视觉盛宴', '完美呈现', '精彩演绎',
+            '自然流露', '情感表达', '个性张扬', '时尚潮流', '经典传承'
+        ];
+
+        let allPhotos = [];
+        let currentCategory = 'all';
+        let currentOrientation = 'all';
+        let currentLightboxIndex = 0;
+
+        function initPhotos() {
+            let index = 0;
+            Object.keys(photoData).forEach(category => {
+                photoData[category].wide.forEach((filename, i) => {
+                    allPhotos.push({
+                        filename: `images/${category}/横构图/${filename}`,
+                        category: category,
+                        orientation: 'wide',
+                        title: photoTitles[(i + index) % photoTitles.length],
+                        originalIndex: index++
+                    });
+                });
+                photoData[category].vertical.forEach((filename, i) => {
+                    allPhotos.push({
+                        filename: `images/${category}/竖构图/${filename}`,
+                        category: category,
+                        orientation: 'vertical',
+                        title: photoTitles[(i + index) % photoTitles.length],
+                        originalIndex: index++
+                    });
+                });
+            });
+            renderGallery();
+        }
+
+        function renderGallery() {
+            const galleryContainer = document.getElementById('galleryContainer');
+            galleryContainer.innerHTML = '';
+
+            let filteredPhotos = allPhotos;
+            if (currentCategory !== 'all') {
+                filteredPhotos = filteredPhotos.filter(p => p.category === currentCategory);
+            }
+            if (currentOrientation !== 'all') {
+                filteredPhotos = filteredPhotos.filter(p => p.orientation === currentOrientation);
+            }
+
+            const categories = currentCategory === 'all' 
+                ? Object.keys(photoData) 
+                : [currentCategory];
+
+            let globalIndex = 0;
+            categories.forEach(category => {
+                const categoryPhotos = filteredPhotos.filter(p => p.category === category);
+                if (categoryPhotos.length === 0) return;
+
+                const categorySection = document.createElement('div');
+                categorySection.className = 'category-section';
+
+                const categoryHeader = document.createElement('div');
+                categoryHeader.className = 'category-header';
+                categoryHeader.innerHTML = `
+                    <h3 class="category-title">${category}</h3>
+                    <div class="category-line"></div>
+                `;
+                categorySection.appendChild(categoryHeader);
+
+                const categoryGallery = document.createElement('div');
+                categoryGallery.className = 'gallery-container';
+
+                categoryPhotos.forEach((photo, index) => {
+                    const item = document.createElement('div');
+                    item.className = `gallery-item ${photo.orientation === 'wide' ? 'wide' : ''}`;
+                    item.style.animationDelay = `${(globalIndex + index) * 0.02}s`;
+
+                    item.innerHTML = `
+                        <img src="" data-src="${photo.filename}" alt="${photo.category}" class="gallery-image lazy">
+                        <div class="gallery-overlay">
+                            <span class="gallery-category">${photo.category}</span>
+                        </div>
+                    `;
+
+                    item.addEventListener('click', () => openLightbox(photo.originalIndex));
+                    categoryGallery.appendChild(item);
+                });
+
+                globalIndex += categoryPhotos.length;
+                categorySection.appendChild(categoryGallery);
+                galleryContainer.appendChild(categorySection);
+            });
+
+            const wideCount = filteredPhotos.filter(p => p.orientation === 'wide').length;
+            const verticalCount = filteredPhotos.filter(p => p.orientation === 'vertical').length;
+
+            document.getElementById('totalCount').textContent = filteredPhotos.length;
+            document.getElementById('wideCount').textContent = wideCount;
+            document.getElementById('verticalCount').textContent = verticalCount;
+
+            initLazyLoad();
+        }
+
+        function initLazyLoad() {
+            const lazyImages = document.querySelectorAll('.gallery-image.lazy');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.onload = () => {
+                            img.classList.add('loaded');
+                            img.classList.remove('lazy');
+                        };
+                        observer.unobserve(img);
+                    }
+                });
+            }, {
+                rootMargin: '100px',
+                threshold: 0.05
+            });
+
+            lazyImages.forEach(img => observer.observe(img));
+        }
+
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentCategory = tab.dataset.category;
+                updateCategoryIntro();
+                renderGallery();
+            });
+        });
+
+        const orientationBtns = document.querySelectorAll('.orientation-btn');
+        orientationBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                orientationBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentOrientation = btn.dataset.orientation;
+                renderGallery();
+            });
+        });
+
+        function updateCategoryIntro() {
+            const intro = document.getElementById('categoryIntro');
+            const desc = categoryDescriptions[currentCategory];
+            intro.innerHTML = `
+                <h3>${desc.title}</h3>
+                <p>${desc.desc}</p>
+            `;
+        }
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxIndex = document.getElementById('lightboxIndex');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            const photo = allPhotos.find(p => p.originalIndex === index);
+            if (photo) {
+                lightboxImage.src = photo.filename;
+                lightboxIndex.textContent = `${index + 1} / ${allPhotos.length}`;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function prevPhoto() {
+            currentLightboxIndex = (currentLightboxIndex - 1 + allPhotos.length) % allPhotos.length;
+            openLightbox(currentLightboxIndex);
+        }
+
+        function nextPhoto() {
+            currentLightboxIndex = (currentLightboxIndex + 1) % allPhotos.length;
+            openLightbox(currentLightboxIndex);
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', prevPhoto);
+        lightboxNext.addEventListener('click', nextPhoto);
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') prevPhoto();
+                if (e.key === 'ArrowRight') nextPhoto();
+            }
+        });
+
+        const navBar = document.getElementById('navBar');
+        const scrollTop = document.getElementById('scrollTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navBar.classList.add('scrolled');
+            } else {
+                navBar.classList.remove('scrolled');
+            }
+
+            if (window.scrollY > 600) {
+                scrollTop.classList.add('active');
+            } else {
+                scrollTop.classList.remove('active');
+            }
+        });
+
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        initPhotos();
+    </script>
+</body>
+</html>
